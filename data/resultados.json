@@ -206,5 +206,70 @@
     "lng": -60.5794,
     "ubicacion_aproximada": true,
     "direccion": "Pueblo Esther, Santa Fe (ubicación aproximada de Airbnb)"
+  },
+  {
+    "link": "https://casa.mercadolibre.com.ar/MLA-2131112829",
+    "titulo": "Casa alquiler temporario Pueblo Esther",
+    "precio_total": 55000,
+    "moneda": "ARS",
+    "localidad": "Pueblo Esther",
+    "capacidad": 8,
+    "nota": "MercadoLibre. Publica $55.000 sin aclarar si es por día; no dice estadía mínima. Disponibilidad para el 17/10 sin confirmar.",
+    "lat": -33.08012,
+    "lng": -60.57682,
+    "ubicacion_aproximada": true,
+    "direccion": "12 de Octubre 1994, Pueblo Esther"
+  },
+  {
+    "link": "https://casa.mercadolibre.com.ar/MLA-3686244486",
+    "titulo": "Casa quinta Funes con pileta (dueño)",
+    "precio_total": 98000,
+    "moneda": "ARS",
+    "localidad": "Funes",
+    "capacidad": 12,
+    "nota": "MercadoLibre. $98.000 publicado, no aclara período ni mínimo. Disponibilidad sin confirmar.",
+    "lat": -32.91644,
+    "lng": -60.821,
+    "ubicacion_aproximada": true,
+    "direccion": "Av. Santa Fe 6481, Funes"
+  },
+  {
+    "link": "https://casa.mercadolibre.com.ar/MLA-4068928146",
+    "titulo": "Casa de descanso, uso familiar, no fiestas",
+    "precio_total": 111111,
+    "moneda": "ARS",
+    "localidad": "Funes",
+    "capacidad": null,
+    "nota": "MercadoLibre. Sin descripción ni capacidad visibles; precio $111.111 sin período aclarado.",
+    "lat": -32.9167,
+    "lng": -60.8097,
+    "ubicacion_aproximada": true,
+    "direccion": "Funes (sin dirección)"
+  },
+  {
+    "link": "https://casa.mercadolibre.com.ar/MLA-3971849462",
+    "titulo": "Casa con piscina en Pueblo Esther",
+    "precio_total": 20000,
+    "moneda": "ARS",
+    "localidad": "Pueblo Esther",
+    "capacidad": 6,
+    "nota": "MercadoLibre. Para 4/6 personas. Publica $20.000, probablemente por persona o como seña: precio real sin confirmar.",
+    "lat": -33.07886,
+    "lng": -60.56408,
+    "ubicacion_aproximada": true,
+    "direccion": "Pueblo Esther (sin dirección)"
+  },
+  {
+    "link": "https://casa.mercadolibre.com.ar/MLA-3979140138",
+    "titulo": "Gran casa en Rosario centro, 3 habitaciones",
+    "precio_total": 150000,
+    "moneda": "ARS",
+    "localidad": "Rosario (centro)",
+    "capacidad": null,
+    "nota": "MercadoLibre. $30.000 por día y por persona → 150.000 para 5. Capacidad no visible.",
+    "lat": -32.93613,
+    "lng": -60.64783,
+    "ubicacion_aproximada": true,
+    "direccion": "Jujuy 1950, Rosario"
   }
 ]
