@@ -1,11 +1,14 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Temporales - mapa</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>html,body,#map{height:100%;margin:0}#msg{position:absolute;top:10px;left:50px;z-index:1000;background:#fff;padding:6px 10px;border-radius:4px;font:14px sans-serif;box-shadow:0 1px 4px #0005}</style>
+<style>html,body,#map{height:100%;margin:0}#msg{position:absolute;top:10px;left:50px;z-index:1000;background:#fff;padding:6px 10px;border-radius:4px;font:14px sans-serif;box-shadow:0 1px 4px #0005}.pp{background:transparent;border:0}.pp span{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#fff;color:#222;font:bold 13px sans-serif;padding:3px 8px;border:1px solid #bbb;border-radius:12px;box-shadow:0 1px 4px #0006;cursor:pointer}
+.pp span:after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:#fff}
+.pp.ap span{border:2px dashed #e67e22}.pp span:hover,.pp.on span{background:#1a73e8;color:#fff;border-color:#1a73e8}.pp span:hover:after,.pp.on span:after{border-top-color:#1a73e8}</style>
 </head><body><div id="map"></div><div id="msg"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function corto(p,m){var n=Number(p);if(p==null||p===''||isNaN(n))return '?';var u=(m||'').toUpperCase()==='USD'?'US$ ':'$ ';var f=function(x){return x.toLocaleString('es-AR',{maximumFractionDigits:1})};return u+(n>=1e6?f(n/1e6)+'M':n>=1e3?f(n/1e3)+'k':f(n))}
 function fmt(p,m){if(p==null||p==='')return '?';var n=Number(p);return (m||'')+' '+(isNaN(n)?p:n.toLocaleString('es-AR'))}
 var ROSARIO=[-32.9468,-60.6393];
 var map=L.map('map').setView(ROSARIO,12);
@@ -16,9 +19,10 @@ fetch('data/'+ds+'.json?t='+Date.now()).then(r=>r.ok?r.json():[]).catch(()=>[]).
  if(!Array.isArray(d))d=[];var pts=[];
  d.forEach(function(r){var la=parseFloat(r.lat),ln=parseFloat(r.lng);if(isNaN(la)||isNaN(ln))return;
   var ap=!!r.ubicacion_aproximada;
-  var m=ap?L.circleMarker([la,ln],{radius:12,dashArray:'4 4',color:'#e67e22',fillOpacity:.25}):L.marker([la,ln]);
-  m.bindPopup('<b>'+esc(r.titulo)+'</b><br>Precio total: '+esc(fmt(r.precio_total,r.moneda))+'<br>Localidad: '+esc(r.localidad)+'<br>Capacidad: '+esc(r.capacidad)+(r.nota?'<br>Nota: '+esc(r.nota):'')+(r.direccion?'<br>Dirección: '+esc(r.direccion):'')+(ap?'<br><i style="color:#e67e22">⚠ ubicación aproximada</i>':'')+(r.link?'<br><a href="'+esc(r.link)+'" target="_blank" rel="noopener">Ver aviso</a>':''));
-  m.bindTooltip(esc(fmt(r.precio_total,r.moneda)));m.addTo(map);pts.push([la,ln]);});
+  var m=L.marker([la,ln],{icon:L.divIcon({className:'pp'+(ap?' ap':''),html:'<span>'+esc(corto(r.precio_total,r.moneda))+'</span>',iconSize:[0,0]})});
+  m.on('popupopen',function(){m.getElement().classList.add('on')});m.on('popupclose',function(){var e=m.getElement();e&&e.classList.remove('on')});
+  m.bindPopup(L.popup({offset:[0,-30]}).setContent('<b>'+esc(r.titulo)+'</b><br>Precio total: '+esc(fmt(r.precio_total,r.moneda))+'<br>Localidad: '+esc(r.localidad)+'<br>Capacidad: '+esc(r.capacidad)+(r.nota?'<br>Nota: '+esc(r.nota):'')+(r.direccion?'<br>Dirección: '+esc(r.direccion):'')+(ap?'<br><i style="color:#e67e22">⚠ ubicación aproximada</i>':'')+(r.link?'<br><a href="'+esc(r.link)+'" target="_blank" rel="noopener">Ver aviso</a>':'')));
+  m.addTo(map);pts.push([la,ln]);});
  if(pts.length){map.fitBounds(pts,{padding:[40,40],maxZoom:15});msg.textContent=(ds==='ejemplo'?'DATOS DE EJEMPLO - ':'')+pts.length+' resultado(s)';}
  else{map.setView(ROSARIO,12);msg.textContent='sin resultados todavía';}
 });
