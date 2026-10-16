@@ -1,0 +1,7 @@
+[
+{"link":"https://example.com/aviso1","titulo":"EJEMPLO - Depto Pichincha","precio_total":180000,"moneda":"ARS","localidad":"Rosario","capacidad":4,"nota":"dato de ejemplo","lat":-32.9380,"lng":-60.6440,"ubicacion_aproximada":false,"direccion":"Pichincha, Rosario"},
+{"link":"https://example.com/aviso2","titulo":"EJEMPLO - Casa Fisherton","precio_total":350,"moneda":"USD","localidad":"Rosario","capacidad":6,"nota":"dato de ejemplo, pileta","lat":-32.9250,"lng":-60.7200,"ubicacion_aproximada":false,"direccion":"Fisherton"},
+{"link":"https://example.com/aviso3","titulo":"EJEMPLO - Quinta Funes","precio_total":420000,"moneda":"ARS","localidad":"Funes","capacidad":8,"nota":"dato de ejemplo","lat":-32.9170,"lng":-60.8100,"ubicacion_aproximada":true,"direccion":"Funes centro (aprox.)"},
+{"link":"https://example.com/aviso4","titulo":"EJEMPLO - Casa Roldán","precio_total":300000,"moneda":"ARS","localidad":"Roldán","capacidad":5,"nota":"dato de ejemplo","lat":-32.8990,"lng":-60.9070,"ubicacion_aproximada":false,"direccion":"Roldán"},
+{"link":"https://example.com/aviso5","titulo":"EJEMPLO - Depto Centro","precio_total":150000,"moneda":"ARS","localidad":"Rosario","capacidad":2,"nota":"dato de ejemplo","lat":-32.9468,"lng":-60.6393,"ubicacion_aproximada":false,"direccion":"Centro, Rosario"}
+]

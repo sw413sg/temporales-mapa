@@ -1,0 +1,25 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Temporales - mapa</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>html,body,#map{height:100%;margin:0}#msg{position:absolute;top:10px;left:50px;z-index:1000;background:#fff;padding:6px 10px;border-radius:4px;font:14px sans-serif;box-shadow:0 1px 4px #0005}</style>
+</head><body><div id="map"></div><div id="msg"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function fmt(p,m){if(p==null||p==='')return '?';var n=Number(p);return (m||'')+' '+(isNaN(n)?p:n.toLocaleString('es-AR'))}
+var ROSARIO=[-32.9468,-60.6393];
+var map=L.map('map').setView(ROSARIO,12);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
+var ds=new URLSearchParams(location.search).get('data')==='ejemplo'?'ejemplo':'resultados';
+var msg=document.getElementById('msg');
+fetch('data/'+ds+'.json?t='+Date.now()).then(r=>r.ok?r.json():[]).catch(()=>[]).then(function(d){
+ if(!Array.isArray(d))d=[];var pts=[];
+ d.forEach(function(r){var la=parseFloat(r.lat),ln=parseFloat(r.lng);if(isNaN(la)||isNaN(ln))return;
+  var ap=!!r.ubicacion_aproximada;
+  var m=ap?L.circleMarker([la,ln],{radius:12,dashArray:'4 4',color:'#e67e22',fillOpacity:.25}):L.marker([la,ln]);
+  m.bindPopup('<b>'+esc(r.titulo)+'</b><br>Precio total: '+esc(fmt(r.precio_total,r.moneda))+'<br>Localidad: '+esc(r.localidad)+'<br>Capacidad: '+esc(r.capacidad)+(r.nota?'<br>Nota: '+esc(r.nota):'')+(r.direccion?'<br>Dirección: '+esc(r.direccion):'')+(ap?'<br><i style="color:#e67e22">⚠ ubicación aproximada</i>':'')+(r.link?'<br><a href="'+esc(r.link)+'" target="_blank" rel="noopener">Ver aviso</a>':''));
+  m.bindTooltip(esc(fmt(r.precio_total,r.moneda)));m.addTo(map);pts.push([la,ln]);});
+ if(pts.length){map.fitBounds(pts,{padding:[40,40],maxZoom:15});msg.textContent=(ds==='ejemplo'?'DATOS DE EJEMPLO - ':'')+pts.length+' resultado(s)';}
+ else{map.setView(ROSARIO,12);msg.textContent='sin resultados todavía';}
+});
+</script></body></html>
